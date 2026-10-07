@@ -19,16 +19,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-
-    /* 🍋⚡ Yellow → White Linear Gradient */
-    background: linear-gradient(
-      to bottom,
-      #FFD700 0%,
-      #FFE44D 25%,
-      #FFEE99 50%,
-      #FFF7CC 75%,
-      #FFFFFF 100%
-    );
+    background: #FFFFFF;
   }
 
   h1 {
@@ -42,6 +33,27 @@
     color: #666;
     margin-bottom: 32px;
     font-size: 1rem;
+  }
+
+  /* 🍋⚡ Gradient applied ONLY to the word "any" */
+  .gradient-text {
+    font-weight: 700;
+    background: linear-gradient(
+      to bottom,
+      #FFD700 0%,
+      #FFE44D 25%,
+      #FFEE99 50%,
+      #FFF7CC 75%,
+      #FFFFFF 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    /* subtle outline so it stays visible on white */
+    -webkit-text-stroke: 0.6px #E6B800;
+    text-shadow: 0 1px 0 rgba(255, 215, 0, 0.25);
   }
 
   .card {
@@ -106,7 +118,7 @@
 <body>
 
   <h1>🍋⚡ Jackson AI</h1>
-  <p class="tagline">Make any game </p>
+  <p class="tagline">Make <span class="gradient-text">any</span> game</p>
 
   <div class="card">
     <h3>Create any game</h3>
@@ -118,14 +130,12 @@
   function generateGame() {
     const prompt = document.getElementById('prompt').value.trim();
 
-    // Redirect to studio.jacker.ai with the prompt as a query param
     const url = 'https://studio.jackson.ai' +
       (prompt ? '?prompt=' + encodeURIComponent(prompt) : '');
 
     window.location.href = url;
   }
 
-  // Optional: press Ctrl/Cmd + Enter to submit
   document.getElementById('prompt').addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       generateGame();
